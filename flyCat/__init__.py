@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:00:37 01/05/2018
 # @File Name:__init__.py
 # @Description:
-#
+# 主程序
 #===================================
 import flyCat.downloader as downloader
 import flyCat.spider as spider

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:04:50 01/05/2018
 # @File Name:spider_plug.py
 # @Description:
-#
+# 解析器插件
 #===================================
 import re
 import flyCat.config as config

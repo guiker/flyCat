@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:0.1Beta
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:00:22 29/04/2018
 # @File Name:userAgents.py
 # @Description:
-#随机生成User-Agent
+# 随机生成User-Agent
 #===================================
 import random
 def userAgents():

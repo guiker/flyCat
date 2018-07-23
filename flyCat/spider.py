@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:00:38 01/05/2018
 # @File Name:spider.py
 # @Description:
-#
+# 解析器
 #===================================
 
 

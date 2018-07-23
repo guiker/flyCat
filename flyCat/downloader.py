@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:00:38 01/05/2018
 # @File Name:downloader.py
 # @Description:
-#
+# 下载器
 #===================================
 import flyCat.agents as agents
 import flyCat.log as log

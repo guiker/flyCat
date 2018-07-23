@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #===================================
-# @Version:
+# @Version:0.1 Beta
 # @Author:guiker
 # @Create Time:09:32 29/04/2018
 # @File Name:log.py
 # @Description:
-#
+# 日志文件
 #===================================
 import flyCat.config as config
 import time
