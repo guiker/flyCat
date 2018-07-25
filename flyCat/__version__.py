@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 
 __title__ = 'flyCat'
-__description__ = 'IP Proxy Poll'
+__description__ = 'IP Proxy Pool'
 __url__ = 'https://github.com/guiker/flyCat'
 __version__ = '0.1.1 Beta'
 __author__ = 'Guiker'
