@@ -55,5 +55,7 @@ result=_plug.ipMatch(l)
 > 3. 添加新的方法以后，可以用debug方法进行测试，例如新的方法为66ip，那么在paw实例化以后，不用start(),直接debug('66ip')
 # 感谢各位大佬的阅读，文档与程序我还会逐步完善，Thanks！
 
-- 2018-07-23 上传程序至GitHub....Version : 0.1 Beta
+- 2018-07-23 上传程序至GitHub....Version : 0.1.0 Beta
 - 2018-07-25 spider新增66ip.cn、89ip.cn
+- 2018-07-26 修复因连接超时抛出异常，程序终止问题。
+             更新版本号 Version : 0.1.1 Beta
