@@ -31,15 +31,35 @@ def xici():
     load = _plug.load('xici')
     allip = set()
     for html in load:  
-        soup=_BeautifulSoup(html,'lxml')
-        a=soup.find_all('td',class_='country')
-        for b in a:
-            l=[]
+        soup = _BeautifulSoup(html,'lxml')
+        td = soup.find_all('td',class_ = 'country')
+        for b in td:
+            l = []
             for d in b.next_siblings:
                 if d.string != '\n':
                     l.append(str(d.string))
             if l != []:
-                result=_plug.ipMatch(l)
+                result = _plug.ipMatch(l)
                 if result:
                     allip.add(result)
+    return allip
+#================#
+# spider by 66IP #
+#================#
+def llip():
+    'http://www.66ip.cn/<2,20>.html'
+    load = _plug.load('llip')
+    allip = set()
+    for html in load:
+        soup = _BeautifulSoup(html,'lxml')
+        tab = soup.find('table',bordercolor='#6699ff')
+        tr_all = tab.find_all('tr')
+        for tr in tr_all:
+            l = []
+            for td in tr:
+                for tdstr in td.children:
+                    l.append(tdstr)
+            result = _plug.ipMatch(l,http='http')
+            if result:
+                allip.add(result)
     return allip
