@@ -39,6 +39,8 @@ def xici():
                 if result:
                     allip.add(result)
     return allip
+
+
 #================#
 # spider by 66IP #
 #================#
@@ -48,14 +50,34 @@ def llip():
     allip = set()
     for html in load:
         soup = _BeautifulSoup(html,'lxml')
-        tab = soup.find('table',bordercolor='#6699ff')
+        tab = soup.find('table',bordercolor = '#6699ff')
         tr_all = tab.find_all('tr')
         for tr in tr_all:
             l = []
             for td in tr:
                 for td_str in td.children:
                     l.append(td_str)
-            result = _plug.ip_match(l,http='http')
+            result = _plug.ip_match(l,http = 'http')
+            if result:
+                allip.add(result)
+    return allip
+
+#================#
+# spider by 89ip #
+#================#
+def bgip():
+    'http://www.89ip.cn/index_<2,20>.html'
+    load = _plug.load('bgip')
+    allip = set()
+    for html in load:
+        soup = _BeautifulSoup(html,'lxml')
+        tbody = soup.find('tbody')
+        for tr in tbody:
+            l = []
+            for td in tr:
+                for td_str in td:
+                    l.append(td_str.strip())
+            result = _plug.ip_match(l,http = 'http')
             if result:
                 allip.add(result)
     return allip
