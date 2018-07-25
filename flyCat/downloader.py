@@ -7,6 +7,7 @@ import flyCat.agents as agents
 import flyCat.log as log
 import urllib.request
 import urllib.error
+import socket
 #import random
 class Begin:
     #初始化proxy
@@ -48,7 +49,7 @@ class Begin:
             else:
                 log.msg('reduced',u'抓取 %s ' % url)
                 req = urllib.request.Request(url,headers = {'User-Agent':self.header})
-                read_url = urllib.request.urlopen(req).read()
+                read_url = urllib.request.urlopen(req,timeout = 20).read()
             #返回读取内容
             try:
                 html = read_url.decode('UTF-8')
@@ -58,10 +59,14 @@ class Begin:
                 log.msg('reduced',u'网页编码为GBK，已解码...')
             return html
         except urllib.error.HTTPError as e:
-            log.msg('tightened',u'HTTP错误，错误代码是:' + e.code)
-            #return False
+            log.msg('tightened',u'HTTP错误，错误代码是:' + str(e.code))
+            return False
         except urllib.error.URLError as e:
-            log.msg('tightened',u'URL错误，错误代码是:' + e.code)
+            log.msg('tightened',u'URL错误，错误代码是:' + str(e.reason))
+            return False
+        except socket.timeout as e:
+            log.msg('tightened',u'socket.timeout !')
+            return False
     def result(self):
         pass
 

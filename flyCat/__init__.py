@@ -53,6 +53,7 @@ class Paw:
     # 保存数据 #
     #==========#
     def _save(self,data):
+        log.msg('tightened',u'正在保存数据...')
         ipdata = list()
         for ip in data:
             ipdata.append(list(ip))
@@ -79,11 +80,12 @@ class Paw:
                 # 初始化downloader
                 down = downloader.Begin(self.start_proxy) 
                 # 读取代理网站HTML数据
-                html = str(down.readURL(page))
-                # 将数据写入缓存
-                log.msg('reduced',u'写入缓存...')
-                with open(self.config['cache_path'] + 'html/' + name + '/' + str(num) + '.html','w+',encoding='UTF-8') as f:
-                    f.write(html)
+                html = down.readURL(page)
+                if html:
+                    # 将数据写入缓存
+                    log.msg('reduced',u'写入缓存...')
+                    with open(self.config['cache_path'] + 'html/' + name + '/' + str(num) + '.html','w+',encoding='UTF-8') as f:
+                        f.write(str(html))
                 num += 1
                 # 运行spider解析HTML数据
             data = eval('spider.' + name + '()')
@@ -103,13 +105,13 @@ class Paw:
             num = 1
             for page in page_list:
                 down = downloader.Begin(self.start_proxy)
-                html = str(down.readURL(page))
-                log.msg('reduced',u'写入缓存...')
-                with open(self.config['cache_path'] +  'html/' + name + '/' + str(num) + '.html','w+',encoding='UTF-8') as f:
-                    f.write(html)
-                f.close()
-                num += 1
-                time.sleep(2)
+                html = down.readURL(page)
+                if html:
+                    log.msg('reduced',u'写入缓存...')
+                    with open(self.config['cache_path'] +  'html/' + name + '/' + str(num) + '.html','w+',encoding='UTF-8') as f:
+                        f.write(str(html))
+                    num += 1
+                #time.sleep(2)
                 # 运行spider解析HTML数据
             log.msg('reduced',u'解析 %s 数据...' % name)
             data = eval('spider.' + name + '()')
