@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version:0.1 Beta
-# @Author:guiker
-# @Create Time:00:38 01/05/2018
-# @File Name:spider.py
-# @Description:
 # 解析器
 #===================================
 
@@ -20,7 +16,7 @@
 
 #载入BeautifulSoup
 from bs4 import BeautifulSoup as _BeautifulSoup
-#载入ipmatch
+#载入plug
 import flyCat.spider_plug as _plug
 
 #================#
@@ -39,7 +35,7 @@ def xici():
                 if d.string != '\n':
                     l.append(str(d.string))
             if l != []:
-                result = _plug.ipMatch(l)
+                result = _plug.ip_match(l)
                 if result:
                     allip.add(result)
     return allip
@@ -57,9 +53,9 @@ def llip():
         for tr in tr_all:
             l = []
             for td in tr:
-                for tdstr in td.children:
-                    l.append(tdstr)
-            result = _plug.ipMatch(l,http='http')
+                for td_str in td.children:
+                    l.append(td_str)
+            result = _plug.ip_match(l,http='http')
             if result:
                 allip.add(result)
     return allip

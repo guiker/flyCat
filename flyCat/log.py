@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version:0.1 Beta
-# @Author:guiker
-# @Create Time:09:32 29/04/2018
-# @File Name:log.py
-# @Description:
 # 日志文件
 #===================================
 import flyCat.config as config
@@ -16,13 +12,13 @@ log有四种等级：
 严格：TIGHTENED
 完全不显示：NO
 '''
-def msg(level,msg,save=False):
+def msg(level,msg,save = False):
     levels={}
     levels['no']        = 0
     levels['tightened'] = 1
     levels['normal']    = 2
     levels['reduced']   = 3
-    now_time=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    now_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     try:
         if levels[config.Config['msg_level']] >= levels[level]:
             print(now_time + '   ' + msg)

@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version:0.1 Beta
-# @Author:guiker
-# @Create Time:00:37 01/05/2018
-# @File Name:__init__.py
-# @Description:
 # 主程序
 #===================================
 import flyCat.downloader as downloader
 import flyCat.spider as spider
-import flyCat.urltest as urltest
+import flyCat.proxy_test as proxy_test
 import flyCat.config as config
 import flyCat.log as log
 import pandas as pd
@@ -19,7 +15,7 @@ import time
 class Paw:
     config = {}
     spider_dict = {}
-    start_proxy={}
+    start_proxy = {}
 
     #============#
     # 解析spider #
@@ -44,9 +40,9 @@ class Paw:
     #================#
     def _spider_page(self,page):
         page_list=[]
-        pre=re.search(r'\<.*\>',page)
+        pre = re.search(r'\<.*\>',page)
         if pre:
-            turn=re.sub(r'\<|\>','',pre.group()).split(',')
+            turn = re.sub(r'\<|\>','',pre.group()).split(',')
             for i in range(int(turn[1])):
                 page_list.append(page.replace(pre.group(),str(int(turn[0])+i)))
         else:
@@ -76,9 +72,9 @@ class Paw:
         data_all = set()
         # 遍历spider_dict
         for name in self.spider_dict:
-            page_list=self._spider_page(self.spider_dict[name])
+            page_list = self._spider_page(self.spider_dict[name])
             log.msg('reduced',u'正在读取 %s 抓取配置...' % name)
-            num=1
+            num = 1
             for page in page_list:
                 # 初始化downloader
                 down = downloader.Begin(self.start_proxy) 
@@ -104,7 +100,7 @@ class Paw:
             path = self.spider_dict[name]
             page_list = self._spider_page(path)
             log.msg('reduced',u'读取 %s 抓取配置...' % name)
-            num=1
+            num = 1
             for page in page_list:
                 down = downloader.Begin(self.start_proxy)
                 html = str(down.readURL(page))
@@ -112,7 +108,7 @@ class Paw:
                 with open(self.config['cache_path'] +  'html/' + name + '/' + str(num) + '.html','w+',encoding='UTF-8') as f:
                     f.write(html)
                 f.close()
-                num+=1
+                num += 1
                 time.sleep(2)
                 # 运行spider解析HTML数据
             log.msg('reduced',u'解析 %s 数据...' % name)
@@ -129,10 +125,10 @@ class Paw:
     def __init__(self,startProxy={}):
         self.spider_dict = self._dir_spider()
         self.config = config.Config
-        self.start_proxy=startProxy
+        self.start_proxy = startProxy
         #初始化缓存路径
         for path in self.spider_dict:
-            if not os.path.exists(self.config['cache_path']+'html/'+path):
-                os.mkdir(self.config['cache_path']+'html/'+path)
+            if not os.path.exists(self.config['cache_path'] + 'html/' + path):
+                os.mkdir(self.config['cache_path'] + 'html/' + path)
 
 

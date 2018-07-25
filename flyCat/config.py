@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version: 0.1 Beta
-# @Author:guiker
-# @Create Time:03:03 30/04/2018
-# @File Name:config.py
-# @Description:
 # 配置文件
 #===================================
 #系统配置文件

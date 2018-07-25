@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version:0.1 Beta
-# @Author:guiker
-# @Create Time:00:38 01/05/2018
-# @File Name:downloader.py
-# @Description:
 # 下载器
 #===================================
 import flyCat.agents as agents
 import flyCat.log as log
 import urllib.request
 import urllib.error
-import random
+#import random
 class Begin:
     #初始化proxy
     proxy = {}
@@ -23,7 +19,7 @@ class Begin:
     #==================#
     # 实例化downloader #
     #==================#
-    def __init__(self,proxy= {}):
+    def __init__(self,proxy = {}):
         '''
         Read读取代理网站HTML数据
         1、确认是否需要用代理IP访问代理网站
@@ -51,7 +47,7 @@ class Begin:
                 read_url = urllib.request.urlopen(url).read()
             else:
                 log.msg('reduced',u'抓取 %s ' % url)
-                req = urllib.request.Request(url,headers={'User-Agent':self.header})
+                req = urllib.request.Request(url,headers = {'User-Agent':self.header})
                 read_url = urllib.request.urlopen(req).read()
             #返回读取内容
             try:
@@ -62,10 +58,10 @@ class Begin:
                 log.msg('reduced',u'网页编码为GBK，已解码...')
             return html
         except urllib.error.HTTPError as e:
-            log.msg('tightened',u'HTTP错误，错误代码是:'+e.code)
+            log.msg('tightened',u'HTTP错误，错误代码是:' + e.code)
             #return False
         except urllib.error.URLError as e:
-            log.msg('tightened',u'URL错误，错误代码是:'+e.code)
+            log.msg('tightened',u'URL错误，错误代码是:' + e.code)
     def result(self):
         pass
 

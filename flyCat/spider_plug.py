@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #===================================
-# @Version:0.1 Beta
-# @Author:guiker
-# @Create Time:04:50 01/05/2018
-# @File Name:spider_plug.py
-# @Description:
 # 解析器插件
 #===================================
 import re
@@ -24,7 +20,7 @@ def load(name):
 #============#
 # 匹配IP地址 #
 #============#
-def ipMatch(value,http=None):
+def ip_match(value,http=None):
     result = {}
     if http:
         result[0]='http'
