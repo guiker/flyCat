@@ -11,19 +11,19 @@ import os
 #==============#
 def load(name):
     path = config.Config['cache_path'] + 'html/'
-    files=os.listdir(path+name)
+    files = os.listdir(path + name)
     for html_file in files:
-        with open(path + name + '/' + html_file,'r',encoding='UTF-8') as f:
+        with open(path + name + '/' + html_file,'r',encoding = 'UTF-8') as f:
             yield f.read()
 
 
 #============#
 # 匹配IP地址 #
 #============#
-def ip_match(value,http=None):
+def ip_match(value,protocol=None):
     result = {}
-    if http:
-        result[0]='http'
+    if protocol:
+        result[0] = protocol
     for i in value:
         # 匹配协议，http 或 https
         if re.match(r'^(http|https)',i,re.I):
@@ -36,7 +36,7 @@ def ip_match(value,http=None):
             result[2] = i
     if len(result) == 3:
         # 合并完整地址
-        ip = (result[0].upper(),result[1] + ':' + result[2])
+        ip = (result[0].upper(),result[1] + ':' + result[2],'5')
         #ip = result[0].upper()+'://'+result[1] + ':' + result[2]
         return ip
     else:

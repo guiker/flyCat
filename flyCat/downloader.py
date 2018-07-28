@@ -16,6 +16,8 @@ class Begin:
     proxySwitch = False
     #载入User-Agent
     header = agents.userAgents()
+    #抓取超时
+    spider_timeout = 20
 
     #==================#
     # 实例化downloader #
@@ -49,7 +51,7 @@ class Begin:
             else:
                 log.msg('reduced',u'抓取 %s ' % url)
                 req = urllib.request.Request(url,headers = {'User-Agent':self.header})
-                read_url = urllib.request.urlopen(req,timeout = 20).read()
+                read_url = urllib.request.urlopen(req,timeout = self.spider_timeout).read()
             #返回读取内容
             try:
                 html = read_url.decode('UTF-8')
@@ -65,7 +67,7 @@ class Begin:
             log.msg('tightened',u'URL错误，错误代码是:' + str(e.reason))
             return False
         except socket.timeout as e:
-            log.msg('tightened',u'socket.timeout !')
+            log.msg('tightened',u'连接超时...')
             return False
     def result(self):
         pass

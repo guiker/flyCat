@@ -8,7 +8,8 @@ import flyCat.spider as spider
 import flyCat.proxy_test as proxy_test
 import flyCat.config as config
 import flyCat.log as log
-import pandas as pd
+import flyCat.database as db
+#import pandas as pd
 import re
 import os
 import time
@@ -53,12 +54,11 @@ class Paw:
     # 保存数据 #
     #==========#
     def _save(self,data):
+        '''
+        对抓取结果进行保存，暂时只保存为CSV
+        '''
         log.msg('tightened',u'正在保存数据...')
-        ipdata = list()
-        for ip in data:
-            ipdata.append(list(ip))
-        df = pd.DataFrame(ipdata)
-        df.to_csv('ip_pool.csv' , index = 0 , header = 0)
+        db.insert(data)
         log.msg('tightened',u'数据保存成功！^_^')
 
     #==========#
@@ -70,9 +70,10 @@ class Paw:
         starProxy()-访问代理IP网站的代理IP
         '''
         log.msg('tightened',u'flyCat 代理IP抓取程序已启动...')
-        data_all = set()
+        #data_all = set()
         # 遍历spider_dict
         for name in self.spider_dict:
+            data_all = set()
             page_list = self._spider_page(self.spider_dict[name])
             log.msg('reduced',u'正在读取 %s 抓取配置...' % name)
             num = 1
@@ -90,12 +91,17 @@ class Paw:
                 # 运行spider解析HTML数据
             data = eval('spider.' + name + '()')
             data_all.update(data)
-        self._save(data_all)
+            self._save(data_all)
+        #self._save(data_all)
 
     #=======#
     # debug #
     #=======#
     def debug(self,name):
+        '''
+        用于对spider抓取规则的调试，
+        抓取完成以后print()出结果，不执行保存
+        '''
         #data_all=set()
         if name:
             log.msg('tightened',u'flyCat 开始调试 %s ,请耐心等待...' % name)
@@ -112,7 +118,7 @@ class Paw:
                         f.write(str(html))
                     num += 1
                 #time.sleep(2)
-                # 运行spider解析HTML数据
+            # 运行spider解析HTML数据
             log.msg('reduced',u'解析 %s 数据...' % name)
             data = eval('spider.' + name + '()')
             print(data)
@@ -132,5 +138,7 @@ class Paw:
         for path in self.spider_dict:
             if not os.path.exists(self.config['cache_path'] + 'html/' + path):
                 os.mkdir(self.config['cache_path'] + 'html/' + path)
+        if not os.path.exists('data/db/ip_poll.db' ):
+            db.create()
 
 
