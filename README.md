@@ -95,7 +95,11 @@ paw.start()
 > #### 2、是用IP代理访问代理网站进行抓取
 - 可以在Paw()实例化的时候，将需要使用的代理IP传入
 > #### 3、代理IP有效性测试
-- 此功能现有待完善
+- 可以直接独立运行ping()
+ ```python
+    import flyCat.proxy_test as test
+    test.ping()
+ ```
 ### 此程序独特的地方:
 > 1. 用BeautifulSoup解析HTML，也可自定义，可根据不同的代理网站编写不同的解析方式.
  > 2. 只需要在spider.py文件中添加一个需要爬取的网站的方法，就能完成代理IP的爬取工作，每个方法相互独立，互不影响。
@@ -113,3 +117,4 @@ paw.start()
 - 2018-07-23 上传程序至GitHub....Version : 0.1.0 Beta
 - 2018-07-25 spider新增66ip.cn、89ip.cn
 - 2018-07-26 修复因连接超时抛出异常，程序终止问题。部分完善README文档。Version : 0.1.1 Beta
+- 2018-07-28 更改数据存储方式为SQLite，增加代理验证功能。Version : 0.1.2 Beta
