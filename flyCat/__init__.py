@@ -134,10 +134,21 @@ class Paw:
         self.spider_dict = self._dir_spider()
         self.config = config.Config
         self.start_proxy = startProxy
-        #初始化缓存路径
+        # 初始化缓存路径
+        if not os.path.exists(self.config['cache_path']):
+            os.mkdir(self.config['cache_path'])
+        if not os.path.exists(self.config['cache_path'] + 'html/'):
+            os.mkdir(self.config['cache_path'] + 'html/')
+        # 初始化数据保存路径
+        if not os.path.exists(self.config['data_path']):
+            os.mkdir(self.config['data_path'])
+        if not os.path.exists(self.config['data_path'] + '/db'):
+            os.mkdir(self.config['data_path'] + '/db')
+        # 初始化spider路径
         for path in self.spider_dict:
             if not os.path.exists(self.config['cache_path'] + 'html/' + path):
                 os.mkdir(self.config['cache_path'] + 'html/' + path)
+        # 初始化SQLite
         if not os.path.exists('data/db/ip_poll.db' ):
             db.create()
 
