@@ -3,8 +3,9 @@
 #===================================
 # 解析器插件
 #===================================
-import re
+
 import flyCat.config as config
+import re
 import os
 #==============#
 # 载入HTML文件 #

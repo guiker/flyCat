@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#===================================
-# 主程序
-#===================================
+
+'''
+主程序
+'''
+# 下载器
 import flyCat.downloader as downloader
+# spider
 import flyCat.spider as spider
-import flyCat.proxy_test as proxy_test
+# 配置文件
 import flyCat.config as config
+# 日志文件
 import flyCat.log as log
+# 数据库文件
 import flyCat.database as db
 #import pandas as pd
 import re
@@ -18,12 +23,9 @@ class Paw:
     spider_dict = {}
     start_proxy = {}
 
-    #============#
-    # 解析spider #
-    #============#
     def _dir_spider(self):
         '''
-        private
+        解析spider
         遍历用户设置的spider模块,返回new_spider列表
         '''
         old_spider = dir(spider)
@@ -36,10 +38,11 @@ class Paw:
             doc = eval('spider.' + name + '.__doc__')
             spider_dict[name] = doc
         return spider_dict
-    #================#
-    # spider页面解析 #
-    #================#
+
     def _spider_page(self,page):
+        '''
+        spider分页面解析
+        '''
         page_list=[]
         pre = re.search(r'\<.*\>',page)
         if pre:
@@ -50,20 +53,15 @@ class Paw:
             page_list.append(page)
         return page_list
 
-    #==========#
-    # 保存数据 #
-    #==========#
     def _save(self,data):
         '''
+        保存数据
         对抓取结果进行保存，暂时只保存为CSV
         '''
         log.msg('tightened',u'正在保存数据...')
         db.insert(data)
         log.msg('tightened',u'数据保存成功！^_^')
 
-    #==========#
-    # 启动程序 #
-    #==========#
     def start(self):
         '''
         启动flyCat
@@ -94,9 +92,6 @@ class Paw:
             self._save(data_all)
         #self._save(data_all)
 
-    #=======#
-    # debug #
-    #=======#
     def debug(self,name):
         '''
         用于对spider抓取规则的调试，
@@ -127,12 +122,12 @@ class Paw:
                 #data_all = data_all | data
         #print(data_all)
 
-    #=============#
-    # flyCat init #
-    #=============#
     def __init__(self,startProxy={}):
+        # 初始化spider
         self.spider_dict = self._dir_spider()
+        # 载入配置文件
         self.config = config.Config
+        # 载入代理
         self.start_proxy = startProxy
         # 初始化缓存路径
         if not os.path.exists(self.config['cache_path']):
@@ -142,14 +137,11 @@ class Paw:
         # 初始化数据保存路径
         if not os.path.exists(self.config['data_path']):
             os.mkdir(self.config['data_path'])
-        if not os.path.exists(self.config['data_path'] + '/db'):
-            os.mkdir(self.config['data_path'] + '/db')
+        if not os.path.exists(self.config['data_path'] + 'db/'):
+            os.mkdir(self.config['data_path'] + 'db/')
         # 初始化spider路径
         for path in self.spider_dict:
             if not os.path.exists(self.config['cache_path'] + 'html/' + path):
                 os.mkdir(self.config['cache_path'] + 'html/' + path)
-        # 初始化SQLite
-        if not os.path.exists('data/db/ip_poll.db' ):
-            db.create()
 
 

@@ -11,6 +11,10 @@ import urllib.request
 import urllib.error
 import socket
 def ping(ip = {},data = 'csv'):
+    '''
+    对proxy进行ping操作，
+    方式为通过proxy连接默认设置的网站
+    '''
     ip_dict = {}
     if ip:
         pass
@@ -25,7 +29,7 @@ def ping(ip = {},data = 'csv'):
                 #载入User-Agent
                 opener.addheaders = {('User-Agent',agents.userAgents())}
                 urllib.request.install_opener(opener)
-                read = urllib.request.urlopen(config.Config['ping_site'],timeout = 5).read()
+                read = urllib.request.urlopen(config.Config['ping_site'],timeout = config.Config['test_timeout']).read()
                 html=read[0:9]
                 if html.decode('UTF-8') == '<!DOCTYPE':
                     print(rows[1],'...OK')

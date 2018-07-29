@@ -5,6 +5,7 @@
 #===================================
 import flyCat.agents as agents
 import flyCat.log as log
+import flyCat.config as config
 import urllib.request
 import urllib.error
 import socket
@@ -17,11 +18,8 @@ class Begin:
     #载入User-Agent
     header = agents.userAgents()
     #抓取超时
-    spider_timeout = 20
+    spider_timeout = config.Config['spider_timeout']
 
-    #==================#
-    # 实例化downloader #
-    #==================#
     def __init__(self,proxy = {}):
         '''
         Read读取代理网站HTML数据
@@ -31,9 +29,6 @@ class Begin:
             # 1、判断是否有初始代理IP传入，选择不同的request方式
             self.proxy = proxy
 
-    #=============#
-    # 读取URL数据 #
-    #=============#
     def readURL(self,url):
         '''
         读取RUL的内容，并返回
@@ -47,11 +42,15 @@ class Begin:
                 opener.addheaders = {('User-Agent',self.header)}
                 urllib.request.install_opener(opener)
                 log.msg('reduced',u'[proxy]抓取 %s ' % url)
-                read_url = urllib.request.urlopen(url).read()
+                response = urllib.request.urlopen(url)
+                read_url = response.read()
+                response.close()
             else:
                 log.msg('reduced',u'抓取 %s ' % url)
                 req = urllib.request.Request(url,headers = {'User-Agent':self.header})
-                read_url = urllib.request.urlopen(req,timeout = self.spider_timeout).read()
+                response = urllib.request.urlopen(req,timeout = self.spider_timeout)
+                read_url = response.read()
+                response.close()
             #返回读取内容
             try:
                 html = read_url.decode('UTF-8')

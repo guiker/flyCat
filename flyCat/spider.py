@@ -23,7 +23,7 @@ import flyCat.spider_plug as _plug
 # spider by 西刺 #
 #================#
 def xici():
-    'http://www.xicidaili.com/nn/<1,20>'
+    'http://www.xicidaili.com/nn/<1,2>'
     load = _plug.load('xici')
     allip = set()
     for html in load:  
@@ -45,7 +45,7 @@ def xici():
 # spider by 66IP #
 #================#
 def llip():
-    'http://www.66ip.cn/<2,20>.html'
+    'http://www.66ip.cn/<2,2>.html'
     load = _plug.load('llip')
     allip = set()
     for html in load:
@@ -66,7 +66,7 @@ def llip():
 # spider by 89ip #
 #================#
 def bgip():
-    'http://www.89ip.cn/index_<2,20>.html'
+    'http://www.89ip.cn/index_<2,2>.html'
     load = _plug.load('bgip')
     allip = set()
     for html in load:
