@@ -16,7 +16,7 @@ Config={
         # 抓取超时
         'spider_timeout':20,
         # 代理IP测试链接地址
-        'ping_site':'https://www.baidu.com',
+        'ping_site':'https://ip.cn',
         # 代理IP测试超时
         'test_timeout':20,
         # 随机获取数据库中的默认IP条数
